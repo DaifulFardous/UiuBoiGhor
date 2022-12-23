@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Start Bootstrap - SB Admin Version 2.0 Demo</title>
+    <title>UIUBoiGhor - Admin Panel</title>
 
     <!-- Core CSS - Include with every page -->
     <link href="{{ asset('admin') }}/css/bootstrap.min.css" rel="stylesheet">
@@ -95,13 +95,13 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        {{-- <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                         <li>
+                            <a href="{{ url('donates') }}"><i class="fa fa-table fa-fw"></i> Donates </a>
                         </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                       <li>
+                            <a href="{{ url('exchanges') }}"><i class="fa fa-edit fa-fw"></i> Exchanges</a>
                         </li>
-                        <li>
+                       {{--  <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>

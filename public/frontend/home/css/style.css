@@ -5039,7 +5039,7 @@ h3.widget-title-modal {
     animation: 1400ms ease-in-out 0s normal none 1 running fadeInRight;
 }
 
-.owl-item.active .animation__style10 .slider__content h2 {
+/* .owl-item.active .animation__style10 .slider__content h2 {
     -webkit-animation: 1200ms ease-in-out 0s normal none 1 running zoomInDown;
     animation: 1200ms ease-in-out 0s normal none 1 running zoomInDown;
 }
@@ -5062,7 +5062,7 @@ h3.widget-title-modal {
 .owl-item.active .animation__style10 .slider__content a {
     -webkit-animation: 1400ms ease-in-out 0s normal none 1 running zoomInUp;
     animation: 1400ms ease-in-out 0s normal none 1 running zoomInUp;
-}
+} */
 
 .slider__fixed--height {
     width: 100%;

@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('header')
-Categories
+Donates
 @endsection
 @section('content')
 <div class="col-md-12">
@@ -8,29 +8,30 @@ Categories
         <thead>
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Status</th>
+            <th scope="col">Username</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Book Image</th>
+            <th scope="col">Receving Date</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-            @foreach ($category as $item)
+            @foreach ($donates as $item)
               <tr>
                 <td>{{ $loop ->index+1 }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->description }}</td>
-                <td>{{ $item->status == TRUE? 'Published':'Unpublished' }}</td>
+                <td>{{ $item->username }}</td>
+                <td>{{ $item->book_name }}</td>
+                <td><img src="{{ asset('assets/uploads/donations/'.$item->image) }}" style="height: 50px; width: 40px" /></td>
+                <td>{{ $item->dropdate }}</td>
                 <td>
                     <nobr>
-                    <a href="{{ url('edit-category/'.$item->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="{{ url('delete-category/'.$item->id) }}" class="btn btn-sm btn-danger"
+                    <a href="{{ url('delete-donate/'.$item->id) }}" class="btn btn-sm btn-danger"
                         onclick="alert('Are you sure, you whant to delete this record??')"
                         >Delete</a>
                     </nobr>
                 </td>
               </tr>
-            @endforeach
+             @endforeach
         </tbody>
     </table>
 </div>

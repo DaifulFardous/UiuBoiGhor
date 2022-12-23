@@ -41,7 +41,7 @@
                 <div class="col-md-6 col-sm-6 col-6 col-lg-2">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="{{ asset('frontend/home') }}/images/logo/logo.png" alt="logo images">
+                            <img src="{{ asset('frontend/home') }}/images/logo/logo.png" alt="logo images" style="height: 100px; width:120px">
                         </a>
                     </div>
                 </div>
@@ -88,34 +88,19 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="drop"><a href="shop-grid.html">Exchange</a>
-                                <div class="megamenu mega03">
-                                    <ul class="item item03">
-                                        <li class="title">Categories</li>
-                                        <li><a href="shop-grid.html">Biography </a></li>
-                                        <li><a href="shop-grid.html">Business </a></li>
-                                        <li><a href="shop-grid.html">Cookbooks </a></li>
-                                        <li><a href="shop-grid.html">Health & Fitness </a></li>
-                                        <li><a href="shop-grid.html">History </a></li>
-                                    </ul>
-                                    <ul class="item item03">
-                                        <li class="title">Customer Favourite</li>
-                                        <li><a href="shop-grid.html">Mystery</a></li>
-                                        <li><a href="shop-grid.html">Religion & Inspiration</a></li>
-                                        <li><a href="shop-grid.html">Romance</a></li>
-                                        <li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-                                        <li><a href="shop-grid.html">Sleeveless</a></li>
-                                    </ul>
-                                    <ul class="item item03">
-                                        <li class="title">Collections</li>
-                                        <li><a href="shop-grid.html">Science </a></li>
-                                        <li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-                                        <li><a href="shop-grid.html">Self-Improvemen</a></li>
-                                        <li><a href="shop-grid.html">Home & Garden</a></li>
-                                        <li><a href="shop-grid.html">Humor Books</a></li>
-                                    </ul>
-                                </div>
-                            </li>
+                            @guest
+                               @if (Route::has('login'))
+                                    <li class="drop">
+                                       <a href="{{ url('exchange') }}">Exchange</a>
+                                    </li>
+                               @endif
+                               @else
+                                    <li class="drop">
+                                       <a href="{{ url('exchange') }}"
+                                       onclick="alert('You must Login First!!')"
+                                       >Exchange</a>
+                                    </li>
+                            @endguest
                             <li class="drop"><a href="shop-grid.html">Rent</a>
                                 <div class="megamenu mega02">
                                     <ul class="item item02">
@@ -126,23 +111,21 @@
                                         <li><a href="shop-grid.html">Harry Potter</a></li>
                                         <li><a href="shop-grid.html">Land of Stories</a></li>
                                     </ul>
-                                    <ul class="item item02">
-                                        <li class="title">More For Kids</li>
-                                        <li><a href="shop-grid.html">B&N Educators</a></li>
-                                        <li><a href="shop-grid.html">B&N Kids' Club</a></li>
-                                        <li><a href="shop-grid.html">Kids' Music</a></li>
-                                        <li><a href="shop-grid.html">Toys & Games</a></li>
-                                        <li><a href="shop-grid.html">Hoodies</a></li>
-                                    </ul>
                                 </div>
                             </li>
+                            @guest
                                @if (Route::has('login'))
-                                 @auth
                                     <li class="drop">
                                        <a href="{{ url('donate') }}">Donate</a>
                                     </li>
-                                 @endauth
                                @endif
+                               @else
+                                    <li class="drop">
+                                       <a href="{{ url('donate') }}"
+                                       onclick="alert('You must Login First!!')"
+                                       >Donate</a>
+                                    </li>
+                            @endguest
                             <li class="drop"><a href="blog.html">Audio Book</a>
                                 <div class="megamenu dropdown">
                                     <ul class="item item01">
@@ -410,7 +393,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section__title text-center">
-                        <h2 class="title__be--2">New <span class="color--theme">Products</span></h2>
+                        <h2 class="title__be--2">Trending <span class="color--theme">Books</span></h2>
                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have
                             suffered lebmid alteration in some ledmid form</p>
                     </div>
@@ -418,271 +401,122 @@
             </div>
             <!-- Start Single Tab Content -->
             <div class="furniture--4 border--round arrows_style owl-carousel owl-theme mt--50">
+                @foreach ($books as $items)
                 <!-- Start Single Product -->
                 <div class="product product__style--3">
                     <div class="product__thumb">
-                        <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/books/1.jpg"
-                                                                              alt="product image"></a>
-                        <a class="second__img animation1" href="single-product.html"><img
-                                src="{{ asset('frontend/home') }}/images/books/2.jpg" alt="product image"></a>
-                        <div class="hot__box">
-                            <span class="hot-label">BEST SALLER</span>
-                        </div>
+                        <a class="first__img" href="single-product.html"><img src="{{ asset('assets/uploads/books/'.$items->image) }}"
+                                                                              alt="product image" style="height: 370px; width: 510px"></a>
                     </div>
                     <div class="product__content content--center">
-                        <h4><a href="single-product.html">robin parrish</a></h4>
+                        <h4><a href="single-product.html">{{ $items->name }}</a></h4>
                         <ul class="price d-flex">
-                            <li>$35.00</li>
-                            <li class="old_price">$35.00</li>
+                            <li>Tk.{{ $items->selling_price }}</li>
+                            <li class="old_price">Tk.{{ $items->original_price }}</li>
                         </ul>
                         <div class="action">
                             <div class="actions_inner">
                                 <ul class="add_to_links">
                                     <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a>
                                     </li>
-                                    <li><a class="wishlist" href="wishlist.html"><i
-                                            class="bi bi-shopping-cart-full"></i></a></li>
-                                    <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                    <li><a data-bs-toggle="modal" title="Quick View"
-                                           class="quickview modal-view detail-link" href="#productmodal"><i
-                                            class="bi bi-search"></i></a></li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="product__hover--content">
-                            <ul class="rating d-flex">
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
-                <!-- Start Single Product -->
-                <!-- Start Single Product -->
-                <div class="product product__style--3">
-                    <div class="product__thumb">
-                        <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/books/3.jpg"
-                                                                              alt="product image"></a>
-                        <a class="second__img animation1" href="single-product.html"><img
-                                src="{{ asset('frontend/home') }}/images/books/4.jpg" alt="product image"></a>
-                        <div class="hot__box color--2">
-                            <span class="hot-label">HOT</span>
-                        </div>
-                    </div>
-                    <div class="product__content content--center">
-                        <h4><a href="single-product.html">The Remainng</a></h4>
-                        <ul class="price d-flex">
-                            <li>$35.00</li>
-                            <li class="old_price">$35.00</li>
-                        </ul>
-                        <div class="action">
-                            <div class="actions_inner">
-                                <ul class="add_to_links">
-                                    <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a>
-                                    </li>
-                                    <li><a class="wishlist" href="wishlist.html"><i
-                                            class="bi bi-shopping-cart-full"></i></a></li>
-                                    <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                    <li><a data-bs-toggle="modal" title="Quick View"
-                                           class="quickview modal-view detail-link" href="#productmodal"><i
-                                            class="bi bi-search"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product__hover--content">
-                            <ul class="rating d-flex">
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Start Single Product -->
-                <!-- Start Single Product -->
-                <div class="product product__style--3">
-                    <div class="product__thumb">
-                        <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/books/5.jpg"
-                                                                              alt="product image"></a>
-                        <a class="second__img animation1" href="single-product.html"><img
-                                src="{{ asset('frontend/home') }}/images/books/6.jpg" alt="product image"></a>
-                        <div class="hot__box">
-                            <span class="hot-label">BEST SALLER</span>
-                        </div>
-                    </div>
-                    <div class="product__content content--center">
-                        <h4><a href="single-product.html">Bowen Greenwood</a></h4>
-                        <ul class="price d-flex">
-                            <li>$40.00</li>
-                            <li class="old_price">$35.00</li>
-                        </ul>
-                        <div class="action">
-                            <div class="actions_inner">
-                                <ul class="add_to_links">
-                                    <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a>
-                                    </li>
-                                    <li><a class="wishlist" href="wishlist.html"><i
-                                            class="bi bi-shopping-cart-full"></i></a></li>
-                                    <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                    <li><a data-bs-toggle="modal" title="Quick View"
-                                           class="quickview modal-view detail-link" href="#productmodal"><i
-                                            class="bi bi-search"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product__hover--content">
-                            <ul class="rating d-flex">
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Start Single Product -->
-                <!-- Start Single Product -->
-                <div class="product product__style--3">
-                    <div class="product__thumb">
-                        <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/books/7.jpg"
-                                                                              alt="product image"></a>
-                        <a class="second__img animation1" href="single-product.html"><img
-                                src="{{ asset('frontend/home') }}/images/books/8.jpg" alt="product image"></a>
-                        <div class="hot__box">
-                            <span class="hot-label">HOT</span>
-                        </div>
-                    </div>
-                    <div class="product__content content--center">
-                        <h4><a href="single-product.html">Lando</a></h4>
-                        <ul class="price d-flex">
-                            <li>$35.00</li>
-                            <li class="old_price">$50.00</li>
-                        </ul>
-                        <div class="action">
-                            <div class="actions_inner">
-                                <ul class="add_to_links">
-                                    <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a>
-                                    </li>
-                                    <li><a class="wishlist" href="wishlist.html"><i
-                                            class="bi bi-shopping-cart-full"></i></a></li>
-                                    <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                    <li><a data-bs-toggle="modal" title="Quick View"
-                                           class="quickview modal-view detail-link" href="#productmodal"><i
-                                            class="bi bi-search"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product__hover--content">
-                            <ul class="rating d-flex">
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Start Single Product -->
-                <!-- Start Single Product -->
-                <div class="product product__style--3">
-                    <div class="product__thumb">
-                        <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/books/9.jpg"
-                                                                              alt="product image"></a>
-                        <a class="second__img animation1" href="single-product.html"><img
-                                src="{{ asset('frontend/home') }}/images/books/10.jpg" alt="product image"></a>
-                        <div class="hot__box">
-                            <span class="hot-label">HOT</span>
-                        </div>
-                    </div>
-                    <div class="product__content content--center">
-                        <h4><a href="single-product.html">Doctor Wldo</a></h4>
-                        <ul class="price d-flex">
-                            <li>$35.00</li>
-                            <li class="old_price">$35.00</li>
-                        </ul>
-                        <div class="action">
-                            <div class="actions_inner">
-                                <ul class="add_to_links">
-                                    <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a>
-                                    </li>
-                                    <li><a class="wishlist" href="wishlist.html"><i
-                                            class="bi bi-shopping-cart-full"></i></a></li>
-                                    <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                    <li><a data-bs-toggle="modal" title="Quick View"
-                                           class="quickview modal-view detail-link" href="#productmodal"><i
-                                            class="bi bi-search"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product__hover--content">
-                            <ul class="rating d-flex">
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Start Single Product -->
-                <!-- Start Single Product -->
-                <div class="product product__style--3">
-                    <div class="product__thumb">
-                        <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/books/11.jpg"
-                                                                              alt="product image"></a>
-                        <a class="second__img animation1" href="single-product.html"><img
-                                src="{{ asset('frontend/home') }}/images/books/2.jpg" alt="product image"></a>
-                        <div class="hot__box">
-                            <span class="hot-label">BEST SALER</span>
-                        </div>
-                    </div>
-                    <div class="product__content content--center content--center">
-                        <h4><a href="single-product.html">Ghost</a></h4>
-                        <ul class="price d-flex">
-                            <li>$50.00</li>
-                            <li class="old_price">$35.00</li>
-                        </ul>
-                        <div class="action">
-                            <div class="actions_inner">
-                                <ul class="add_to_links">
-                                    <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a>
-                                    </li>
-                                    <li><a class="wishlist" href="wishlist.html"><i
-                                            class="bi bi-shopping-cart-full"></i></a></li>
-                                    <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                    <li><a data-bs-toggle="modal" title="Quick View"
-                                           class="quickview modal-view detail-link" href="#productmodal"><i
-                                            class="bi bi-search"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product__hover--content">
-                            <ul class="rating d-flex">
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Start Single Product -->
-                </div>
+                @endforeach
             </div>
             <!-- End Single Tab Content -->
         </div>
     </section>
+    <div style="text-align: center"><a class="shopbtn" href="#">View All</a></div>
     <!-- Start BEst Seller Area -->
+    <section class="wn__product__area brown--color pt--80  pb--30">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__title text-center">
+                        <h2 class="title__be--2">Academic <span class="color--theme">Books</span></h2>
+                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                            suffered lebmid alteration in some ledmid form</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Start Single Tab Content -->
+            <div class="furniture--4 border--round arrows_style owl-carousel owl-theme mt--50">
+                @foreach ($academics as $items)
+                <!-- Start Single Product -->
+                <div class="product product__style--3">
+                    <div class="product__thumb">
+                        <a class="first__img" href="single-product.html"><img src="{{ asset('assets/uploads/books/'.$items->image) }}"
+                                                                              alt="product image" style="height: 370px; width: 510px"></a>
+                    </div>
+                    <div class="product__content content--center">
+                        <h4><a href="single-product.html">{{ $items->name }}</a></h4>
+                        <ul class="price d-flex">
+                            <li>Tk.{{ $items->selling_price }}</li>
+                            <li class="old_price">Tk.{{ $items->original_price }}</li>
+                        </ul>
+                        <div class="action">
+                            <div class="actions_inner">
+                                <ul class="add_to_links">
+                                    <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <!-- End Single Tab Content -->
+        </div>
+    </section>
+    <div style="text-align: center"><a class="shopbtn" href="#">View All</a></div>
+    <section class="wn__product__area brown--color pt--80  pb--30">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__title text-center">
+                        <h2 class="title__be--2">Fictional <span class="color--theme">Books</span></h2>
+                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                            suffered lebmid alteration in some ledmid form</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Start Single Tab Content -->
+            <div class="furniture--4 border--round arrows_style owl-carousel owl-theme mt--50">
+                @foreach ($fictionals as $items)
+                <!-- Start Single Product -->
+                <div class="product product__style--3">
+                    <div class="product__thumb">
+                        <a class="first__img" href="single-product.html"><img src="{{ asset('assets/uploads/books/'.$items->image) }}"
+                                                                              alt="product image" style="height: 370px; width: 510px"></a>
+                    </div>
+                    <div class="product__content content--center">
+                        <h4><a href="single-product.html">{{ $items->name }}</a></h4>
+                        <ul class="price d-flex">
+                            <li>Tk.{{ $items->selling_price }}</li>
+                            <li class="old_price">Tk.{{ $items->original_price }}</li>
+                        </ul>
+                        <div class="action">
+                            <div class="actions_inner">
+                                <ul class="add_to_links">
+                                    <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <!-- End Single Tab Content -->
+        </div>
+    </section>
+    <div style="text-align: center"><a class="shopbtn" href="#">View All</a></div>
     <!-- Start NEwsletter Area -->
-    <section class="wn__newsletter__area bg-image--2">
+    <section class="wn__newsletter__area bg-image--2 mt-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 offset-lg-5 col-md-12 col-12 ptb--150">
@@ -3164,352 +2998,6 @@
         </div>
     </section>
     <!-- Start BEst Seller Area -->
-    <!-- Start Recent Post Area -->
-    <section class="wn__recent__post bg--gray ptb--80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section__title text-center">
-                        <h2 class="title__be--2">Our <span class="color--theme">Blog</span></h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered lebmid alteration in some ledmid form</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt--50">
-                <div class="col-md-6 col-lg-4 col-sm-12">
-                    <div class="post__itam">
-                        <div class="content">
-                            <h3><a href="blog-details.html">International activities of the Frankfurt Book </a></h3>
-                            <p>We are proud to announce the very first the edition of the frankfurt news.We are
-                                proud to announce the very first of edition of the fault frankfurt news for us.</p>
-                            <div class="post__time">
-                                <span class="day">Dec 06, 18</span>
-                                <div class="post-meta">
-                                    <ul>
-                                        <li><a href="#"><i class="bi bi-love"></i>72</a></li>
-                                        <li><a href="#"><i class="bi bi-chat-bubble"></i>27</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-sm-12">
-                    <div class="post__itam">
-                        <div class="content">
-                            <h3><a href="blog-details.html">Reading has a signficant info number of benefits</a>
-                            </h3>
-                            <p>Find all the information you need to ensure your experience.Find all the information
-                                you need to ensure your experience . Find all the information you of.</p>
-                            <div class="post__time">
-                                <span class="day">Mar 08, 18</span>
-                                <div class="post-meta">
-                                    <ul>
-                                        <li><a href="#"><i class="bi bi-love"></i>72</a></li>
-                                        <li><a href="#"><i class="bi bi-chat-bubble"></i>27</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-sm-12">
-                    <div class="post__itam">
-                        <div class="content">
-                            <h3><a href="blog-details.html">The London Book Fair is to be packed with exciting </a>
-                            </h3>
-                            <p>The London Book Fair is the global area inon marketplace for rights negotiation.The
-                                year London Book Fair is the global area inon forg marketplace for rights.</p>
-                            <div class="post__time">
-                                <span class="day">Nov 11, 18</span>
-                                <div class="post-meta">
-                                    <ul>
-                                        <li><a href="#"><i class="bi bi-love"></i>72</a></li>
-                                        <li><a href="#"><i class="bi bi-chat-bubble"></i>27</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Recent Post Area -->
-    <!-- Best Sale Area -->
-    <section class="best-seel-area pt--80 pb--60">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section__title text-center pb--50">
-                        <h2 class="title__be--2">Best <span class="color--theme">Seller </span></h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered lebmid alteration in some ledmid form</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider center">
-            <!-- Single product start -->
-            <div class="product product__style--3">
-                <div class="product__thumb">
-                    <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/best-sell-product/1.jpg"
-                                                                          alt="product image"></a>
-                </div>
-                <div class="product__content content--center">
-                    <div class="action">
-                        <div class="actions_inner">
-                            <ul class="add_to_links">
-                                <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-                                <li><a class="wishlist" href="wishlist.html"><i
-                                        class="bi bi-shopping-cart-full"></i></a></li>
-                                <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                <li><a data-bs-toggle="modal" title="Quick View"
-                                       class="quickview modal-view detail-link" href="#productmodal"><i
-                                        class="bi bi-search"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product__hover--content">
-                        <ul class="rating d-flex">
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Single product end -->
-            <!-- Single product start -->
-            <div class="product product__style--3">
-                <div class="product__thumb">
-                    <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/best-sell-product/2.jpg"
-                                                                          alt="product image"></a>
-                </div>
-                <div class="product__content content--center">
-                    <div class="action">
-                        <div class="actions_inner">
-                            <ul class="add_to_links">
-                                <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-                                <li><a class="wishlist" href="wishlist.html"><i
-                                        class="bi bi-shopping-cart-full"></i></a></li>
-                                <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                <li><a data-bs-toggle="modal" title="Quick View"
-                                       class="quickview modal-view detail-link" href="#productmodal"><i
-                                        class="bi bi-search"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product__hover--content">
-                        <ul class="rating d-flex">
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Single product end -->
-            <!-- Single product start -->
-            <div class="product product__style--3">
-                <div class="product__thumb">
-                    <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/best-sell-product/3.jpg"
-                                                                          alt="product image"></a>
-                </div>
-                <div class="product__content content--center">
-                    <div class="action">
-                        <div class="actions_inner">
-                            <ul class="add_to_links">
-                                <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-                                <li><a class="wishlist" href="wishlist.html"><i
-                                        class="bi bi-shopping-cart-full"></i></a></li>
-                                <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                <li><a data-bs-toggle="modal" title="Quick View"
-                                       class="quickview modal-view detail-link" href="#productmodal"><i
-                                        class="bi bi-search"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product__hover--content">
-                        <ul class="rating d-flex">
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Single product end -->
-            <!-- Single product start -->
-            <div class="product product__style--3">
-                <div class="product__thumb">
-                    <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/best-sell-product/4.jpg"
-                                                                          alt="product image"></a>
-                </div>
-                <div class="product__content content--center">
-                    <div class="action">
-                        <div class="actions_inner">
-                            <ul class="add_to_links">
-                                <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-                                <li><a class="wishlist" href="wishlist.html"><i
-                                        class="bi bi-shopping-cart-full"></i></a></li>
-                                <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                <li><a data-bs-toggle="modal" title="Quick View"
-                                       class="quickview modal-view detail-link" href="#productmodal"><i
-                                        class="bi bi-search"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product__hover--content">
-                        <ul class="rating d-flex">
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Single product end -->
-            <!-- Single product start -->
-            <div class="product product__style--3">
-                <div class="product__thumb">
-                    <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/best-sell-product/5.jpg"
-                                                                          alt="product image"></a>
-                </div>
-                <div class="product__content content--center">
-                    <div class="action">
-                        <div class="actions_inner">
-                            <ul class="add_to_links">
-                                <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-                                <li><a class="wishlist" href="wishlist.html"><i
-                                        class="bi bi-shopping-cart-full"></i></a></li>
-                                <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                <li><a data-bs-toggle="modal" title="Quick View"
-                                       class="quickview modal-view detail-link" href="#productmodal"><i
-                                        class="bi bi-search"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product__hover--content">
-                        <ul class="rating d-flex">
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Single product end -->
-            <!-- Single product start -->
-            <div class="product product__style--3">
-                <div class="product__thumb">
-                    <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/best-sell-product/6.jpg"
-                                                                          alt="product image"></a>
-                </div>
-                <div class="product__content content--center">
-                    <div class="action">
-                        <div class="actions_inner">
-                            <ul class="add_to_links">
-                                <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-                                <li><a class="wishlist" href="wishlist.html"><i
-                                        class="bi bi-shopping-cart-full"></i></a></li>
-                                <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                <li><a data-bs-toggle="modal" title="Quick View"
-                                       class="quickview modal-view detail-link" href="#productmodal"><i
-                                        class="bi bi-search"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product__hover--content">
-                        <ul class="rating d-flex">
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Single product end -->
-            <!-- Single product start -->
-            <div class="product product__style--3">
-                <div class="product__thumb">
-                    <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/best-sell-product/7.jpg"
-                                                                          alt="product image"></a>
-                </div>
-                <div class="product__content content--center">
-                    <div class="action">
-                        <div class="actions_inner">
-                            <ul class="add_to_links">
-                                <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-                                <li><a class="wishlist" href="wishlist.html"><i
-                                        class="bi bi-shopping-cart-full"></i></a></li>
-                                <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                <li><a data-bs-toggle="modal" title="Quick View"
-                                       class="quickview modal-view detail-link" href="#productmodal"><i
-                                        class="bi bi-search"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product__hover--content">
-                        <ul class="rating d-flex">
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Single product end -->
-            <!-- Single product start -->
-            <div class="product product__style--3">
-                <div class="product__thumb">
-                    <a class="first__img" href="single-product.html"><img src="{{ asset('frontend/home') }}/images/best-sell-product/8.jpg"
-                                                                          alt="product image"></a>
-                </div>
-                <div class="product__content content--center">
-                    <div class="action">
-                        <div class="actions_inner">
-                            <ul class="add_to_links">
-                                <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-                                <li><a class="wishlist" href="wishlist.html"><i
-                                        class="bi bi-shopping-cart-full"></i></a></li>
-                                <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-                                <li><a data-bs-toggle="modal" title="Quick View"
-                                       class="quickview modal-view detail-link" href="#productmodal"><i
-                                        class="bi bi-search"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product__hover--content">
-                        <ul class="rating d-flex">
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Single product end -->
-        </div>
-    </section>
-    <!-- Best Sale Area Area -->
     <!-- Footer Area -->
     <footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
         <div class="footer-static-top">
@@ -3519,7 +3007,7 @@
                         <div class="footer__widget footer__menu">
                             <div class="ft__logo">
                                 <a href="index.html">
-                                    <img src="{{ asset('frontend/home') }}/images/logo/3.png" alt="logo">
+                                    <img src="{{ asset('frontend/home') }}/images/logo/3.png" alt="logo" style="height:100px; width:120px">
                                 </a>
                                 <p>There are many variations of passages of Lorem Ipsum available, but the majority
                                     have suffered duskam alteration variations of passages</p>

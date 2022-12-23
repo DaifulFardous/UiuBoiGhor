@@ -24,7 +24,7 @@ Books
         <tbody>
             @foreach ($books as $item)
             <tr>
-                <td>{{ $item->id }}</td>
+                <td>{{ $loop ->index+1 }}</td>
                 <td>{{ $item->category->name }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->author_name }}</td>
