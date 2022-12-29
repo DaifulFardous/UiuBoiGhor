@@ -27,7 +27,7 @@ class ExchnageController extends Controller
         $exchnage->phone =  Auth::user()->phone;
         $exchnage->address = $request->address;
         $exchnage->save();
-        return redirect('/home')->with('status', 'Thanks for your exchange post!!');
+        return redirect('/')->with('status', 'Thanks for your exchange post!!');
     }
     public function exchanges(){
         $exchanges = Exchange::all();

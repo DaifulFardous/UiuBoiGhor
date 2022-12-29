@@ -17,6 +17,13 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('/');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('trendings', [App\Http\Controllers\FrontendController::class, 'trending'])->name('trending');
+Route::get('academics', [App\Http\Controllers\FrontendController::class, 'academics'])->name('academics');
+Route::get('fictionals', [App\Http\Controllers\FrontendController::class, 'fictionals'])->name('fictionals');
+Route::get('all-books', [App\Http\Controllers\FrontendController::class, 'allBooks'])->name('all-books');
+Route::get('book-category/{id}', [App\Http\Controllers\FrontendController::class, 'categoryWise'])->name('book-category');
+Route::get('single-view/{id}', [App\Http\Controllers\FrontendController::class, 'single'])->name('single-view');
+
 //users
 Route::get('donate', [App\Http\Controllers\DonateController::class, 'donate'])->name('donate')->middleware('auth');
 Route::post('insert-donate', [App\Http\Controllers\DonateController::class, 'insert'])->name('insert-donate')->middleware('auth');
