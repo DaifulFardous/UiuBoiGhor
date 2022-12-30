@@ -30,11 +30,11 @@
                                 <!-- Start Single Product -->
                                 <div class="product product__style--3 col-lg-3 col-md-3 col-sm-5 col-12">
                                     <div class="product__thumb">
-                                        <a class="first__img" href="single-product.html"><img src="{{ asset('assets/uploads/books/'.$items->image) }}"
+                                        <a class="first__img" href="{{ url('single-view/'.$items->id) }}"><img src="{{ asset('assets/uploads/books/'.$items->image) }}"
                                                                                               alt="product image" style="height: 370px; width: 510px"></a>
                                     </div>
                                     <div class="product__content content--center">
-                                        <h4><a href="single-product.html">{{ $items->name }}</a></h4>
+                                        <h4><a href="{{ url('single-view/'.$items->id) }}">{{ $items->name }}</a></h4>
                                         <ul class="price d-flex">
                                             <li>Tk.{{ $items->selling_price }}</li>
                                             <li class="old_price">Tk.{{ $items->original_price }}</li>
