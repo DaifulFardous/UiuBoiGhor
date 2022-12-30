@@ -50,7 +50,7 @@
                         <ul class="meninmenu d-flex justify-content-start">
                             <li class="drop with--one--item"><a href="{{ url('/') }}">Home</a>
                             </li>
-                            <li class="drop"><a href="shop-grid.html">Categories</a>
+                            <li class="drop"><a href="#">Categories</a>
                                 <div class="megamenu mega02">
                                     <ul class="item item02">
                                         <li class="title">All Categories</li>
@@ -106,93 +106,61 @@
                     <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
                         <li class="shop_search" style="margin-right: 10px"><a class="search__active" href="#"></a></li>
                         <li class="shopcart"><a class="cartbox_active" href="#"><span
-                                class="product_qun">3</span></a>
+                            @if(Auth::user())
+                                class="product_qun">{{ $cart->count() }}</span></a>
                             <!-- Start Shopping Cart -->
-                            <div class="block-minicart minicart__active">
-                                <div class="minicart-content-wrapper">
-                                    <div class="micart__close">
-                                        <span>close</span>
-                                    </div>
-                                    <div class="items-total d-flex justify-content-between">
-                                        <span>3 items</span>
-                                        <span>Cart Subtotal</span>
-                                    </div>
-                                    <div class="total_amount text-end">
-                                        <span>$66.00</span>
-                                    </div>
-                                    <div class="mini_action checkout">
-                                        <a class="checkout__btn" href="cart.html">Go to Checkout</a>
-                                    </div>
-                                    <div class="single__items">
-                                        <div class="miniproduct">
-                                            <div class="item01 d-flex">
-                                                <div class="thumb">
-                                                    <a href="product-details.html"><img
-                                                            src="{{ asset('frontend/home') }}/images/product/sm-img/1.jpg"
-                                                            alt="product images"></a>
-                                                </div>
-                                                <div class="content">
-                                                    <h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
-                                                    <span class="price">$30.00</span>
-                                                    <div class="product_price d-flex justify-content-between">
-                                                        <span class="qun">Qty: 01</span>
-                                                        <ul class="d-flex justify-content-end">
-                                                            <li><a href="#"><i class="zmdi zmdi-settings"></i></a>
-                                                            </li>
-                                                            <li><a href="#"><i class="zmdi zmdi-delete"></i></a>
-                                                            </li>
-                                                        </ul>
+                                <div class="block-minicart minicart__active">
+                                    <div class="minicart-content-wrapper">
+                                        <div class="micart__close">
+                                            <span>close</span>
+                                        </div>
+                                        <div class="items-total d-flex justify-content-between">
+                                            <span>{{ $cart->count() }} items</span>
+                                            <span>Cart Subtotal</span>
+                                        </div>
+                                        @php
+                                        $subtotal = 0;
+                                        @endphp
+                                        @foreach($cart as $item)
+                                        @php
+                                        $subtotal = $subtotal + $item->books->selling_price*$item->qty;
+                                        @endphp
+                                    @endforeach
+                                        <div class="total_amount text-end">
+                                            <span>Tk.{{ $subtotal }}</span>
+                                        </div>
+                                        <div class="mini_action checkout">
+                                            <a class="checkout__btn" href="{{ url('checkout') }}">Go to Checkout</a>
+                                        </div>
+                                        <div class="single__items">
+                                            <div class="miniproduct">
+                                                @foreach ($cart as $item)
+                                                <div class="item01 d-flex mt--20">
+                                                    <div class="thumb">
+                                                        <a href="product-details.html"><img
+                                                                src="{{ asset('assets/uploads/books/'.$item->books->image) }}"
+                                                                alt="product images"></a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h6><a href="product-details.html">{{ $item->books->name }}</a></h6>
+                                                        <span class="price">Tk.{{ $item->books->selling_price }}</span>
+                                                        <div class="product_price d-flex justify-content-between">
+                                                            <span class="qun">{{ $item->qty }}</span>
+                                                            <ul class="d-flex justify-content-end">
+                                                                <li><a href="{{ url('delete-cart/'.$item->id) }}"><i class="zmdi zmdi-delete"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="item01 d-flex mt--20">
-                                                <div class="thumb">
-                                                    <a href="product-details.html"><img
-                                                            src="{{ asset('frontend/home') }}/images/product/sm-img/3.jpg"
-                                                            alt="product images"></a>
-                                                </div>
-                                                <div class="content">
-                                                    <h6><a href="product-details.html">Impulse Duffle</a></h6>
-                                                    <span class="price">$40.00</span>
-                                                    <div class="product_price d-flex justify-content-between">
-                                                        <span class="qun">Qty: 03</span>
-                                                        <ul class="d-flex justify-content-end">
-                                                            <li><a href="#"><i class="zmdi zmdi-settings"></i></a>
-                                                            </li>
-                                                            <li><a href="#"><i class="zmdi zmdi-delete"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="item01 d-flex mt--20">
-                                                <div class="thumb">
-                                                    <a href="product-details.html"><img
-                                                            src="{{ asset('frontend/home') }}/images/product/sm-img/2.jpg"
-                                                            alt="product images"></a>
-                                                </div>
-                                                <div class="content">
-                                                    <h6><a href="product-details.html">Compete Track Tote</a></h6>
-                                                    <span class="price">$40.00</span>
-                                                    <div class="product_price d-flex justify-content-between">
-                                                        <span class="qun">Qty: 03</span>
-                                                        <ul class="d-flex justify-content-end">
-                                                            <li><a href="#"><i class="zmdi zmdi-settings"></i></a>
-                                                            </li>
-                                                            <li><a href="#"><i class="zmdi zmdi-delete"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mini_action cart">
-                                        <a class="cart__btn" href="cart.html">View and edit cart</a>
-                                    </div>
                                 </div>
-                            </div>
-                            <!-- End Shopping Cart -->
+                                <!-- End Shopping Cart -->
+                            @else
+                            @endif
                         </li>
                         <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
                             <div class="searchbar__content setting__block">

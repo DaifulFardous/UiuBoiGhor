@@ -101,6 +101,9 @@
                        <li>
                             <a href="{{ url('exchanges') }}"><i class="fa fa-edit fa-fw"></i> Exchanges</a>
                         </li>
+                       <li>
+                            <a href="{{ url('orders') }}"><i class="fa fa-edit fa-fw"></i> Orders</a>
+                        </li>
                        {{--  <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

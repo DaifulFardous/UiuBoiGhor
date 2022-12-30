@@ -43,14 +43,27 @@
                                         <p>{{ $book->short_description }}</p>
                                     </div>
                                     <div class="box-tocart d-flex">
-                                        <span>Qty</span>
-                                        <input id="qty" class="input-text qty" name="qty" min="1" value="1"
-                                               title="Qty" type="number">
-                                        <div class="addtocart__actions">
-                                            <button class="tocart" type="submit" title="Add to Cart">Add to
-                                                Cart
-                                            </button>
-                                        </div>
+                                        <form action="{{ url('cart-store') }}" method="POST">
+                                            @csrf
+                                            <input name="book_id"
+                                             type="hidden" value="{{ $book->id }}">
+                                            <span>Qty</span>
+                                            <input id="qty" class="input-text qty" name="qty" min="1" value="1"
+                                                title="Qty" type="number">
+                                            <div class="addtocart__actions">
+                                                <button class="tocart" type="submit" title="Add to Cart">Add to
+                                                    Cart
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="box-tocart d-flex">
+                                        <form action="" method="">
+                                            <div class="addtocart__actions">
+                                                <button class="tocart" type="submit" title="Add to Cart">Take Rent
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
                                     <div class="product_meta">
 											<span class="posted_in">Category:

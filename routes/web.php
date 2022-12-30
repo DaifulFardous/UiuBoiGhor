@@ -29,6 +29,10 @@ Route::get('donate', [App\Http\Controllers\DonateController::class, 'donate'])->
 Route::post('insert-donate', [App\Http\Controllers\DonateController::class, 'insert'])->name('insert-donate')->middleware('auth');
 Route::get('exchange', [App\Http\Controllers\ExchnageController::class, 'exchange'])->name('exchange')->middleware('auth');
 Route::post('insert-exchange', [App\Http\Controllers\ExchnageController::class, 'insert'])->name('insert-exchange')->middleware('auth');
+Route::post('cart-store', [App\Http\Controllers\CartController::class, 'store'])->name('cart-store')->middleware('auth');
+Route::get('delete-cart/{id}', [App\Http\Controllers\CartController::class, 'distroy'])->name('delete-cart')->middleware('auth');
+Route::get('checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
+Route::post('confirm-order', [App\Http\Controllers\OrderController::class, 'order'])->name('confirm-order')->middleware('auth');
 
 
 Route::middleware(['auth','isAdmin'])->group(function (){
@@ -54,5 +58,9 @@ Route::middleware(['auth','isAdmin'])->group(function (){
      Route::get('exchanges',[App\Http\Controllers\ExchnageController::class, 'exchanges'])->name('exchanges');
      Route::get('delete-donate/{id}',[App\Http\Controllers\DonateController::class, 'distroy'])->name('delete-donate');
      Route::get('delete-exchange/{id}',[App\Http\Controllers\ExchnageController::class, 'distroy'])->name('delete-exchange');
+
+     //order
+     Route::get('orders',[App\Http\Controllers\OrderController::class, 'index'])->name('orders');
+     Route::get('view-order/{id}',[App\Http\Controllers\OrderController::class, 'view'])->name('view-order');
 
  });
