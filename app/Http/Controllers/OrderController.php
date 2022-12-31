@@ -45,4 +45,11 @@ class OrderController extends Controller
         $orders = Order::where('id', $id)->first();
         return view('admin.order.order-view',compact('orders'));
     }
+    public function update(Request $request){
+        $order = Order::find($request->id);
+        $order->status = $request->status;
+        $order->update();
+        $orders = Order::where('status','0')->get();
+        return view('admin.order.orders',compact('orders'))->with('status','Order Delivired');
+    }
 }

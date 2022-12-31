@@ -62,7 +62,7 @@
                             </li>
                             <li class="drop"><a href="#">Exchange Deals</a>
                             </li>
-                            @guest
+                            {{-- @guest
                                @if (Route::has('login'))
                                     <li class="drop">
                                        <a href="{{ url('exchange') }}">Exchange</a>
@@ -74,7 +74,7 @@
                                        onclick="alert('You must Login First!!')"
                                        >Exchange</a>
                                     </li>
-                            @endguest
+                            @endguest --}}
                             @guest
                                @if (Route::has('login'))
                                     <li class="drop">

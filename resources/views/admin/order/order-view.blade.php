@@ -51,5 +51,18 @@ Order View
             </tbody>
           </table>\
           <h3>Grand Total= </h3> <span>Tk. {{ $orders->total_price }}</span>
+          <div class="mt-4">
+            <form action="{{ url('update-order') }}" method="POST">
+                @csrf
+              <div class="form-group">
+                <select class="form-control" name="status">
+                  <option value="0" selected>Pending</option>
+                  <option value="1">Delivired</option>
+                </select>
+              </div>
+              <input type="hidden" value="{{ $orders->id }}" name="id">
+              <input type="submit" class="btn btn-primary" value="update">
+            </form>
+          </div>
     </div>
 @endsection

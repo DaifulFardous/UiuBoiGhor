@@ -62,5 +62,6 @@ Route::middleware(['auth','isAdmin'])->group(function (){
      //order
      Route::get('orders',[App\Http\Controllers\OrderController::class, 'index'])->name('orders');
      Route::get('view-order/{id}',[App\Http\Controllers\OrderController::class, 'view'])->name('view-order');
+     Route::post('update-order',[App\Http\Controllers\OrderController::class, 'update'])->name('update-order');
 
  });
