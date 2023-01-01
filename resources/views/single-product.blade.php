@@ -58,12 +58,10 @@
                                         </form>
                                     </div>
                                     <div class="box-tocart d-flex">
-                                        <form action="" method="">
                                             <div class="addtocart__actions">
-                                                <button class="tocart" type="submit" title="Add to Cart">Take Rent
-                                                </button>
+                                                <a class="tocart" type="button" href="{{ url('rent-view/'.$book->id) }}">Take Rent
+                                                </a>
                                             </div>
-                                        </form>
                                     </div>
                                     <div class="product_meta">
 											<span class="posted_in">Category:

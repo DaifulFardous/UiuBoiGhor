@@ -33,6 +33,8 @@ Route::post('cart-store', [App\Http\Controllers\CartController::class, 'store'])
 Route::get('delete-cart/{id}', [App\Http\Controllers\CartController::class, 'distroy'])->name('delete-cart')->middleware('auth');
 Route::get('checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
 Route::post('confirm-order', [App\Http\Controllers\OrderController::class, 'order'])->name('confirm-order')->middleware('auth');
+Route::get('rent-view/{id}', [App\Http\Controllers\RentController::class, 'view'])->name('rent-view')->middleware('auth');
+Route::post('confirm-rent', [App\Http\Controllers\RentController::class, 'rent'])->name('confirm-rent')->middleware('auth');
 
 
 Route::middleware(['auth','isAdmin'])->group(function (){
@@ -63,5 +65,11 @@ Route::middleware(['auth','isAdmin'])->group(function (){
      Route::get('orders',[App\Http\Controllers\OrderController::class, 'index'])->name('orders');
      Route::get('view-order/{id}',[App\Http\Controllers\OrderController::class, 'view'])->name('view-order');
      Route::post('update-order',[App\Http\Controllers\OrderController::class, 'update'])->name('update-order');
+
+     //rent
+     Route::get('rents',[App\Http\Controllers\RentController::class, 'index'])->name('rents');
+     Route::get('view-rent/{id}',[App\Http\Controllers\RentController::class, 'viewR'])->name('view-rent');
+     Route::get('view-rent/{id}',[App\Http\Controllers\RentController::class, 'viewR'])->name('view-rent');
+     Route::post('update-rent',[App\Http\Controllers\RentController::class, 'update'])->name('update-rent');
 
  });

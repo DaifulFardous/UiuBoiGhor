@@ -60,8 +60,8 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="drop"><a href="#">Exchange Deals</a>
-                            </li>
+                            {{-- <li class="drop"><a href="#">Exchange Deals</a>
+                            </li> --}}
                             {{-- @guest
                                @if (Route::has('login'))
                                     <li class="drop">
@@ -88,7 +88,7 @@
                                        >Donate</a>
                                     </li>
                             @endguest
-                            <li class="drop"><a href="blog.html">Audio Book</a>
+                            {{-- <li class="drop"><a href="blog.html">Audio Book</a>
                                 <div class="megamenu dropdown">
                                     <ul class="item item01">
                                         <li><a href="blog.html">Blog Page</a></li>
@@ -97,7 +97,7 @@
                                         <li><a href="blog-details.html">Blog Details</a></li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </nav>
