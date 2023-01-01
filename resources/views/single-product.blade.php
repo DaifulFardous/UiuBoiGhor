@@ -8,7 +8,7 @@
                 <div class="breadcrumb__inner text-center">
                     <h2 class="breadcrumb-title">Shop Single</h2>
                     <nav class="breadcrumb-content">
-                        <a class="breadcrumb_item" href="index.html">Home</a>
+                        <a class="breadcrumb_item" href="{{ url('/') }}">Home</a>
                         <span class="brd-separator">/</span>
                         <span class="breadcrumb_item active">Shop Single</span>
                     </nav>

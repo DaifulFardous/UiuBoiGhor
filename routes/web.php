@@ -23,6 +23,9 @@ Route::get('fictionals', [App\Http\Controllers\FrontendController::class, 'ficti
 Route::get('all-books', [App\Http\Controllers\FrontendController::class, 'allBooks'])->name('all-books');
 Route::get('book-category/{id}', [App\Http\Controllers\FrontendController::class, 'categoryWise'])->name('book-category');
 Route::get('single-view/{id}', [App\Http\Controllers\FrontendController::class, 'single'])->name('single-view');
+Route::get('contact-us', [App\Http\Controllers\ContactController::class, 'index'])->name('contact-us');
+Route::post('send-mail', [App\Http\Controllers\ContactController::class, 'sendEmail'])->name('send-mail');
+Route::get('audio-book', [App\Http\Controllers\AudiobookController::class, 'index'])->name('audio-book');
 
 //users
 Route::get('donate', [App\Http\Controllers\DonateController::class, 'donate'])->name('donate')->middleware('auth');
@@ -35,6 +38,11 @@ Route::get('checkout', [App\Http\Controllers\CheckoutController::class, 'index']
 Route::post('confirm-order', [App\Http\Controllers\OrderController::class, 'order'])->name('confirm-order')->middleware('auth');
 Route::get('rent-view/{id}', [App\Http\Controllers\RentController::class, 'view'])->name('rent-view')->middleware('auth');
 Route::post('confirm-rent', [App\Http\Controllers\RentController::class, 'rent'])->name('confirm-rent')->middleware('auth');
+Route::get('user-profile', [App\Http\Controllers\FrontendController::class, 'profile'])->name('user-profile')->middleware('auth');
+Route::get('user-order-history', [App\Http\Controllers\FrontendController::class, 'orderHistory'])->name('user-order-history')->middleware('auth');
+Route::get('user-invoice/{id}', [App\Http\Controllers\FrontendController::class, 'viewInvoice'])->name('user-invoice')->middleware('auth');
+Route::get('download-user-invoice/{id}', [App\Http\Controllers\FrontendController::class, 'generateInvoice'])->name('download-user-invoice')->middleware('auth');
+Route::get('download/{file}', [App\Http\Controllers\AudiobookController::class, 'download'])->name('download/')->middleware('auth');
 
 
 Route::middleware(['auth','isAdmin'])->group(function (){
@@ -65,11 +73,20 @@ Route::middleware(['auth','isAdmin'])->group(function (){
      Route::get('orders',[App\Http\Controllers\OrderController::class, 'index'])->name('orders');
      Route::get('view-order/{id}',[App\Http\Controllers\OrderController::class, 'view'])->name('view-order');
      Route::post('update-order',[App\Http\Controllers\OrderController::class, 'update'])->name('update-order');
+     Route::get('order-history',[App\Http\Controllers\OrderController::class, 'history'])->name('order-history');
+     Route::get('admin-invoice/{id}',[App\Http\Controllers\OrderController::class, 'viewInvoice'])->name('admin-invoice');
+     Route::get('download-invoice/{id}',[App\Http\Controllers\OrderController::class, 'generateInvoice'])->name('download-invoice');
 
      //rent
      Route::get('rents',[App\Http\Controllers\RentController::class, 'index'])->name('rents');
      Route::get('view-rent/{id}',[App\Http\Controllers\RentController::class, 'viewR'])->name('view-rent');
      Route::get('view-rent/{id}',[App\Http\Controllers\RentController::class, 'viewR'])->name('view-rent');
      Route::post('update-rent',[App\Http\Controllers\RentController::class, 'update'])->name('update-rent');
+     Route::get('rent-history',[App\Http\Controllers\RentController::class, 'history'])->name('rent-history');
 
+     //audio-book
+     Route::get('add-audiobook',[App\Http\Controllers\AudiobookController::class, 'addAudiobook'])->name('add-audiobook');
+     Route::post('insert-audiobook',[App\Http\Controllers\AudiobookController::class, 'insert'])->name('insert-audiobook');
+     Route::get('audiobooks',[App\Http\Controllers\AudiobookController::class, 'viewAll'])->name('audiobooks');
+     Route::get('delete-audiobook/{id}',[App\Http\Controllers\AudiobookController::class, 'destroy'])->name('delete-audiobook');
  });

@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItems;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -51,5 +52,21 @@ class OrderController extends Controller
         $order->update();
         $orders = Order::where('status','0')->get();
         return view('admin.order.orders',compact('orders'))->with('status','Order Delivired');
+    }
+    public function history(){
+        $orders = Order::where('status','1')->get();
+        return view('admin.order.history',compact('orders'));
+    }
+    public function viewInvoice($id){
+        $order = Order::find($id);
+        return view('admin.invoice.generate-invoice',compact('order'));
+    }
+    public function generateInvoice($id){
+        $order = Order::find($id);
+        $data= [
+            'order'=>$order
+        ];
+        $pdf = Pdf::loadView('admin.invoice.generate-invoice', $data);
+        return $pdf->download('invoice'.$id.'.pdf');
     }
 }

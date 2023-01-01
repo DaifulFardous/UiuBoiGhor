@@ -1,8 +1,9 @@
 @extends('admin.master')
 @section('header')
-Rents
+Pending Rents
 @endsection
 @section('content')
+<a type="button" href="{{ url('rent-history') }}" class="btn btn-warning" style="margin-bottom: 10px; float:right">Rent History</a>
 <div class="col-md-12">
     <table class="table table-bordered table-dark">
         <thead>

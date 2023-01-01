@@ -1,10 +1,11 @@
 @extends('admin.master')
 @section('header')
-Orders
+Pending Orders
 @endsection
 @section('content')
+<a type="button" href="{{ url('order-history') }}" class="btn btn-warning" style="margin-bottom: 10px; float:right">Order History</a>
 <div class="col-md-12">
-    <table class="table table-bordered table-dark">
+    <table class="table table-bordered table-dark mt-5">
         <thead>
           <tr>
             <th scope="col">Id</th>

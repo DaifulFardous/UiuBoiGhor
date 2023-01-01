@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use PharIo\Manifest\Author;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FrontendController extends Controller
 {
@@ -84,6 +87,38 @@ class FrontendController extends Controller
         }catch(Exception $e){
             return view('single-product',compact('categories','book','trendings'));
         }
+    }
+    public function profile(){
+        $categories = Category::all();
+        try{
+            $cart = Cart::where('user_id', Auth::user()->id)->get();
+            return view('user-profile',compact('categories','cart'));
+        }catch(Exception $e){
+            return view('user-profile',compact('categories'));
+        }
+    }
+    public function orderHistory(){
+        $categories = Category::all();
+        $user_mail = Auth::user()->email;
+        $orders = Order::where('email',$user_mail)->get();
+        try{
+            $cart = Cart::where('user_id', Auth::user()->id)->get();
+            return view('user-order-history',compact('categories','cart','orders'));
+        }catch(Exception $e){
+            return view('user-order-history',compact('categories','orders'));
+        }
+    }
+    public function viewInvoice($id){
+        $order = Order::find($id);
+        return view('admin.invoice.generate-invoice',compact('order'));
+    }
+    public function generateInvoice($id){
+        $order = Order::find($id);
+        $data= [
+            'order'=>$order
+        ];
+        $pdf = Pdf::loadView('admin.invoice.generate-invoice', $data);
+        return $pdf->download('invoice'.$id.'.pdf');
     }
 
 }

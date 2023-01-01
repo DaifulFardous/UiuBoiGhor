@@ -52,17 +52,22 @@ Order View
           </table>\
           <h3>Grand Total= </h3> <span>Tk. {{ $orders->total_price }}</span>
           <div class="mt-4">
-            <form action="{{ url('update-order') }}" method="POST">
+            <form action="{{ url('update-order') }}" method="POST" style="margin-bottom: 5px">
                 @csrf
               <div class="form-group">
                 <select class="form-control" name="status">
-                  <option value="0" selected>Pending</option>
-                  <option value="1">Delivired</option>
+                  <option value="0" {{ $orders->status == '0' ? 'selected':'' }}>Pending</option>
+                  <option value="1" {{ $orders->status == '1' ? 'selected':'' }}>Delivired</option>
                 </select>
               </div>
               <input type="hidden" value="{{ $orders->id }}" name="id">
-              <input type="submit" class="btn btn-primary" value="update">
+              <input type="submit" class="btn btn-success" value="update">
             </form>
+            @if($orders->status == '1')
+            <a href="{{ url('admin-invoice/'.$orders->id) }}" target="_blank" class="btn btn-primary" >View Invoice</a>
+            <a href="{{ url('download-invoice/'.$orders->id) }}" class="btn btn-warning">Download Invoice</a>
+            @else
+            @endif
           </div>
     </div>
 @endsection

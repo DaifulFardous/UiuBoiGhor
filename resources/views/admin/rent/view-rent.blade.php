@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('header')
-Order View
+Rent View
 @endsection
 @section('content')
     <div class="col-md-5">
@@ -51,11 +51,11 @@ Order View
                 @csrf
               <div class="form-group">
                 <select class="form-control" name="status">
-                  <option value="0" selected>Pending</option>
-                  <option value="1">Delivired</option>
+                  <option value="0" {{ $rent->status == '0' ? 'selected':'' }}>Pending</option>
+                  <option value="1" {{ $rent->status == '1' ? 'selected':'' }}>Delivired</option>
                 </select>
               </div>
-              <input type="hidden" value="{{ $rent->id }}" name="id">
+              <input type="hidden"  value="{{ $rent->id }}" name="id">
               <input type="submit" class="btn btn-primary" value="update">
             </form>
           </div>

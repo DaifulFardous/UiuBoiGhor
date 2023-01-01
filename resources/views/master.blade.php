@@ -88,17 +88,9 @@
                                        >Donate</a>
                                     </li>
                             @endguest
-                            {{-- <li class="drop"><a href="blog.html">Audio Book</a>
-                                <div class="megamenu dropdown">
-                                    <ul class="item item01">
-                                        <li><a href="blog.html">Blog Page</a></li>
-                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                        <li><a href="blog-no-sidebar.html">Blog No Sidebar</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </div>
-                            </li> --}}
-                            <li><a href="contact.html">Contact</a></li>
+                            <li class="drop"><a href="{{ url('audio-book') }}">Audio Books</a>
+                            </li>
+                            <li><a href="{{ url('contact-us') }}">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -166,9 +158,17 @@
                             <div class="searchbar__content setting__block">
                                 <div class="content-inner">
                                     <div class="switcher-currency">
+                                        @guest
+                                        @if(Route::has('login') or Route::has('register'))
                                         <strong class="label switcher-label">
-                                            <span>My Account</span>
+                                            <span href="#">Login/Register</span>
                                         </strong>
+                                        @endif
+                                        @else
+                                        <strong class="label switcher-label">
+                                            <a href="{{ url('user-profile') }}">View Profile</a>
+                                        </strong>
+                                        @endguest
                                         <div class="switcher-options">
                                             <div class="switcher-currency-trigger">
                                                 <div class="setting__menu">

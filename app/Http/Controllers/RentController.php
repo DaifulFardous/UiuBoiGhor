@@ -50,4 +50,8 @@ class RentController extends Controller
         $rents = Rent::where('status','0')->get();
         return view('admin.rent.rents',compact('rents'))->with('status','Rent Delivired');
     }
+    public function history(){
+        $rents = Rent::where('status','1')->get();
+        return view('admin.rent.history',compact('rents'));
+    }
 }
