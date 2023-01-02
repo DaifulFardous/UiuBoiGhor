@@ -120,5 +120,25 @@ class FrontendController extends Controller
         $pdf = Pdf::loadView('admin.invoice.generate-invoice', $data);
         return $pdf->download('invoice'.$id.'.pdf');
     }
+    public function search(Request $request){
+        $name = $request->search;
+        $categories = Category::all();
+        $book = Book::where('name',$name)->first();
+        if($book){
+        try{
+            $cart = Cart::where('user_id', Auth::user()->id)->get();
+            return view('single-product',compact('categories','book','cart'));
+        }catch(Exception $e){
+            return view('single-product',compact('categories','book'));
+        }
+     }else{
+        try{
+            $cart = Cart::where('user_id', Auth::user()->id)->get();
+            return view('no-match',compact('categories','cart'));
+        }catch(Exception $e){
+            return view('no-match',compact('categories','book'));
+        }
+     }
+    }
 
 }

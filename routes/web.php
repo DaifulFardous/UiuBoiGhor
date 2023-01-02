@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Audiobook;
+use App\Models\Book;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +29,7 @@ Route::get('single-view/{id}', [App\Http\Controllers\FrontendController::class, 
 Route::get('contact-us', [App\Http\Controllers\ContactController::class, 'index'])->name('contact-us');
 Route::post('send-mail', [App\Http\Controllers\ContactController::class, 'sendEmail'])->name('send-mail');
 Route::get('audio-book', [App\Http\Controllers\AudiobookController::class, 'index'])->name('audio-book');
+Route::post('search', [App\Http\Controllers\FrontendController::class, 'search'])->name('search');
 
 //users
 Route::get('donate', [App\Http\Controllers\DonateController::class, 'donate'])->name('donate')->middleware('auth');
@@ -47,7 +51,10 @@ Route::get('download/{file}', [App\Http\Controllers\AudiobookController::class, 
 
 Route::middleware(['auth','isAdmin'])->group(function (){
     Route::get('/dashboard', function () {
-        return view('admin.index');
+        $count_users = User::count();
+        $count_books = Book::count();
+        $count_audioBooks = Audiobook::count();
+        return view('admin.index',compact('count_users','count_books','count_audioBooks'));
      });
      //category_routes
      Route::get('categories',[App\Http\Controllers\CategoryController::class, 'index'])->name('categories');

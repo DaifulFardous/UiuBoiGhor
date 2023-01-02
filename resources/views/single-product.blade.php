@@ -116,7 +116,7 @@
                         <div class="section__title text-center">
                             <h2 class="title__be--2">Trending Books</h2>
                         </div>
-                        <div class="row mt--60">
+                        {{-- <div class="row mt--60">
                             <div class="productcategory__slide--2 arrows_style owl-carousel owl-theme">
                                 @foreach ($trendings as $items)
                                 <!-- Start Single Product -->
@@ -135,7 +135,7 @@
                                 </div>
                                 @endforeach
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
